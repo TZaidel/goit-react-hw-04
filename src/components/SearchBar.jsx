@@ -1,24 +1,20 @@
 import toast from 'react-hot-toast';
 
-// const notify = () => toast('Search query is empty.');
-
-export default function SearchBar({ onSubmit }) {
+export default function SearchBar({ onSearch }) {
 	const handleSubmit = e => {
 		e.preventDefault();
-
-		if (e.target.query.value.trim() === '') {
+		onSearch(e.target.elements.query.value);
+		if (e.target.elements.query.value.trim('') === '') {
 			toast.error('Search query is empty.');
 			return;
 		}
-
-		onSubmit(e.target.query.value);
 		e.target.reset();
 	};
 
 	return (
 		<form onSubmit={handleSubmit}>
 			<input name='query' type='text' placeholder='Search images and photos' />
-			<button type='submit'>Search</button>
+			<button>Search</button>
 		</form>
 	);
 }
