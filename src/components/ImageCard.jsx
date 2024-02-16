@@ -29,6 +29,7 @@ export default function ImageCard({
 				closeModal={closeModal}
 				item={urls}
 				caption={description}
+				alt={alt_description}
 			/>
 		</div>
 	);

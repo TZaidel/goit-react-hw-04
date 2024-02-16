@@ -3,11 +3,11 @@ import toast from 'react-hot-toast';
 export default function SearchBar({ onSearch }) {
 	const handleSubmit = e => {
 		e.preventDefault();
-		onSearch(e.target.elements.query.value);
 		if (e.target.elements.query.value.trim('') === '') {
 			toast.error('Search query is empty.');
 			return;
 		}
+		onSearch(e.target.elements.query.value);
 		e.target.reset();
 	};
 

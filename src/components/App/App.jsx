@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { InfinitySpin } from 'react-loader-spinner';
 import { Toaster } from 'react-hot-toast';
 import './App.css';
 
+import { fetchImages } from '../../api.js';
 import SearchBar from '../SearchBar';
-import ImageList from '../ImageList/ImageList';
+import ImageGallery from '../ImageGallery/ImageGallery';
+import LoadMoreBtn from '../LoadMoreBtn';
+import ErrorMessage from '../ErrorMessage';
+import Loader from '../Loader';
 
 function App() {
 	const [query, setQuery] = useState('');
@@ -32,20 +34,22 @@ function App() {
 		async function fetchData() {
 			try {
 				setLoading(true);
-				const response = await axios.get(
-					'https://api.unsplash.com/search/photos',
-					{
-						params: {
-							client_id: 'k-KTfIYFgOqtCuPX3B4HiwmSeyL2GsF0uwT4gKkf0pw',
-							query: query.split('/')[1],
-							page,
-						},
-					}
-				);
-				console.log(response.data);
-				setImages(prev => [...prev, ...response.data.results]);
+				const fetchedImages = await fetchImages(query, page);
+				setImages(prev => [...prev, ...fetchedImages]);
+				// const response = await axios.get(
+				// 	'https://api.unsplash.com/search/photos',
+				// 	{
+				// 		params: {
+				// 			client_id: 'k-KTfIYFgOqtCuPX3B4HiwmSeyL2GsF0uwT4gKkf0pw',
+				// 			query: query.split('/')[1],
+				// 			page,
+				// 		},
+				// 	}
+				// );
+				// setImages(prev => [...prev, ...response.data.results]);
 			} catch (error) {
 				setError(true);
+				console.log(error.message);
 			} finally {
 				setLoading(false);
 			}
@@ -57,16 +61,12 @@ function App() {
 		<div>
 			<SearchBar onSearch={searchImages} />
 
-			{images.length > 0 && <ImageList items={images} />}
+			{images.length > 0 && <ImageGallery items={images} />}
 
-			{images.length > 0 && <button onClick={handleClick}>Load more</button>}
+			{images.length > 0 && <LoadMoreBtn onClick={handleClick} />}
 
-			{loading && (
-				<p>
-					<InfinitySpin width='1000' color='blue' />
-				</p>
-			)}
-			{error && <p>Error</p>}
+			{loading && <Loader />}
+			{error && <ErrorMessage />}
 			<Toaster />
 		</div>
 	);

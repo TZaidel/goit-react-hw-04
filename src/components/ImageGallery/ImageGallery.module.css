@@ -1,4 +1,4 @@
-.image-list {
+.Image__List {
 	display: flex;
 	width: 1200px;
 	gap: 15px;
@@ -6,6 +6,6 @@
 	list-style: none;
 }
 
-.image-item {
+.Image__Item {
 	width: 200px;
 }

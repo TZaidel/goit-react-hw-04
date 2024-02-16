@@ -1,12 +1,12 @@
 import ImageCard from '../ImageCard';
-import './ImageList.css';
+import css from './ImageGallery.module.css';
 
 export default function ImageList({ items, openModal }) {
 	return (
-		<ul className='image-list'>
+		<ul className={css.Image__List}>
 			{items.map(item => (
 				<li
-					className='image-item'
+					className={css.Image__Item}
 					key={item.id}
 					onClick={e => {
 						console.log(e);
