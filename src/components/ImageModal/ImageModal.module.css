@@ -1,0 +1,18 @@
+.ImageCard {
+	text-align: center;
+}
+
+.Modal__Image {
+	width: 400px;
+	height: auto;
+	filter: grayscale(0);
+}
+
+.ImageCard p {
+	color: #fff;
+	width: 400px;
+	background-color: #00000053;
+	padding: 5px;
+	box-sizing: border-box;
+	margin-bottom: 0;
+}

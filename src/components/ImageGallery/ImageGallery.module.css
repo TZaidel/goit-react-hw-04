@@ -1,11 +1,20 @@
 .Image__List {
 	display: flex;
 	width: 1200px;
-	gap: 15px;
+	gap: 10px;
+	justify-content: center;
 	flex-wrap: wrap;
 	list-style: none;
+	padding: 50px;
+	border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+
+	border-top: 1px solid rgba(128, 128, 128, 0.3);
 }
 
 .Image__Item {
 	width: 200px;
+}
+
+.Image__Item:hover ImageCard {
+	z-index: 2;
 }

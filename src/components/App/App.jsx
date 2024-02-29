@@ -3,7 +3,7 @@ import { Toaster } from 'react-hot-toast';
 import './App.css';
 
 import { fetchImages } from '../../api.js';
-import SearchBar from '../SearchBar';
+import SearchBar from '../SearchBar/SearchBar.jsx';
 import ImageGallery from '../ImageGallery/ImageGallery';
 import LoadMoreBtn from '../LoadMoreBtn';
 import ErrorMessage from '../ErrorMessage';
@@ -28,6 +28,24 @@ function App() {
 	};
 
 	useEffect(() => {
+		async function fetchData() {
+			try {
+				setLoading(true);
+				const defaultQuery = 'nature';
+				const fetchedImages = await fetchImages();
+				console.log(fetchedImages);
+				setImages(prev => [...prev, ...fetchedImages]);
+			} catch (error) {
+				setError(true);
+				console.log(error.message);
+			} finally {
+				setLoading(false);
+			}
+		}
+		fetchData();
+	}, []);
+
+	useEffect(() => {
 		if (query === '') {
 			return;
 		}
@@ -36,17 +54,6 @@ function App() {
 				setLoading(true);
 				const fetchedImages = await fetchImages(query, page);
 				setImages(prev => [...prev, ...fetchedImages]);
-				// const response = await axios.get(
-				// 	'https://api.unsplash.com/search/photos',
-				// 	{
-				// 		params: {
-				// 			client_id: 'k-KTfIYFgOqtCuPX3B4HiwmSeyL2GsF0uwT4gKkf0pw',
-				// 			query: query.split('/')[1],
-				// 			page,
-				// 		},
-				// 	}
-				// );
-				// setImages(prev => [...prev, ...response.data.results]);
 			} catch (error) {
 				setError(true);
 				console.log(error.message);
