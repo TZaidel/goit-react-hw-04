@@ -31,7 +31,6 @@ function App() {
 		async function fetchData() {
 			try {
 				setLoading(true);
-				const defaultQuery = 'nature';
 				const fetchedImages = await fetchImages();
 				console.log(fetchedImages);
 				setImages(prev => [...prev, ...fetchedImages]);

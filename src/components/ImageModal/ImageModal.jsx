@@ -46,3 +46,4 @@ export default function ImageModal({ isOpenModal, closeModal, item }) {
 		</Modal>
 	);
 }
+	
